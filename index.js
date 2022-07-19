@@ -41,8 +41,9 @@ crafting.text('This is a demo that documents how to build a report using the "cr
     const metric_column1 = layout.column1.metric(i)
     setInterval(() => 
     {
-      metric_column1.input(i)
-      metric_column1.emit2all('input changed', { input:++i < 10 ? i : i -= 9 })
+      const input = ++i < 10 ? i : i -= 9
+      metric_column1.input(input)
+      metric_column1.emit2all('input changed', { input })
     }, 1e3)
 
     layout.column2.metric(6)
