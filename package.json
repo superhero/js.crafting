@@ -1,0 +1,22 @@
+{
+  "name": "crafting",
+  "version": "0.0.1",
+  "description": "Data report composer",
+  "main": "src/server/index.js",
+  "scripts": {
+    "test": "syntax-check",
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "superhero": "2.12.1",
+    "@superhero/core.handlebars": "2.1.4",
+    "@superhero/core.websocket": "2.1.1",
+    "@superhero/core.resource": "2.0.1"
+  },
+  "devDependencies": {
+    "@superhero/syntax-check": "0.0.2",
+    "nodemon":"2.0.19"
+  },
+  "author": "Erik Landvall",
+  "license": "MIT"
+}

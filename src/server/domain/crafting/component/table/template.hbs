@@ -1,0 +1,21 @@
+<table>
+  {{# if head }}
+    <thead>
+      <tr>
+        {{# each head }}
+          <th>{{ this }}</th>
+        {{/ each }}
+      </tr>
+    </thead>
+  {{/ if }}
+
+  <tbody>
+      {{# each body }}
+        <tr>
+          {{# each this }}
+            <td>{{ this }}</td>
+          {{/ each }}
+        </tr>
+      {{/ each }}
+  </tbody>
+</table>

@@ -1,0 +1,7 @@
+.DS_Store
+.vscode
+npm-debug.log
+node_modules
+package-lock.json
+.nyc_output
+.env

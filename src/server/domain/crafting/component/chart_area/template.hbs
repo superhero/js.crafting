@@ -1,0 +1,7 @@
+<div class="chart-area" data-cid="{{ cid }}">
+  <canvas></canvas>
+
+  {{# each dataset }}
+    <div class="dataset" data-value="dataset.{{ @key }}">{{{ jsonStringify this }}}</div>
+  {{/ each }}
+</div>

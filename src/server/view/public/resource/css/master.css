@@ -1,0 +1,366 @@
+*,
+input,
+textarea,
+select,
+option
+{
+  font-size: 16px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #aaa;
+}
+.material-icons-outlined
+{
+  vertical-align: middle;
+  margin-left: 8px;
+}
+header .material-icons-outlined
+{
+  margin: 0;
+}
+header:after,
+footer:after,
+main:after,
+div:after,
+navigation:after,
+segment:after,
+.layout:after,
+.container:after
+{
+  content: "";
+  display: table;
+  clear: both;
+}
+h1,
+h1 *,
+h2,
+h2 *,
+h3,
+h3 *,
+h4,
+h4 *,
+h5,
+h5 *,
+h6,
+h6 *
+{
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 32px;
+}
+h1,
+h1 *,
+h2,
+h2 *,
+h3,
+h3 *
+{
+  font-weight: 600;
+}
+h4,
+h4 *,
+h5,
+h5 *,
+h6,
+h6 *
+{
+  font-weight: 500;
+}
+h1
+{
+  font-size: 3em;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+}
+h2
+{
+  font-size: 2em;
+}
+h3
+{
+  font-size: 1.25em;
+}
+h4
+{
+  font-size: 1.25em;
+}
+h5
+{
+  font-size: 1em;
+}
+h6
+{
+  font-size: .8em;
+  font-family: monospace;
+  margin-top: 8px;
+  color: #666;
+}
+html,
+body
+{
+  background: #0a0a0a;
+  margin: 0;
+  padding: 0;
+}
+section
+{
+  margin-top: 2em;
+}
+p
+{
+  margin-top: 16px;
+  line-height: 1.5em;
+}
+pre
+{
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  margin: 16px 0px;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+fieldset
+{
+  border: 1px solid #222;
+  margin: 24px 0;
+  padding: 24px;
+}
+fieldset legend
+{
+  color: #aaa;
+  font-weight: bold;
+}
+fieldset legend,
+fieldset legend *
+{
+  color: #aaa;
+}
+label
+{
+  font-size: .9em;
+  display: block;
+  margin: 24px 0;
+  color: #aaa;
+  font-weight: bold;
+}
+label:last-child
+{
+  margin-bottom: 0;
+}
+input[type=text],
+input[type=password]
+{
+  margin-top: 12px;
+  display: block;
+  background: #0f0f0f;
+  border: 4px solid #222;
+  line-height: 1.5em;
+  width: 100%;
+  padding: 8px;
+}
+input[type=text]:focus,
+input[type=password]:focus
+{
+  background: #050505;
+  border: 4px solid #333;
+  line-height: 1.5em;
+  width: 100%;
+  padding: 8px;
+}
+button,
+button *
+{
+  color: #fff;
+}
+button
+{
+  display: block;
+  float: right;
+  background: #222;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0 16px;
+  border: 8px solid #222;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 36px;
+  color: #fff;
+}
+button:hover,
+button:focus
+{
+  background: #444;
+}
+header
+{
+  padding: 24px 0;
+}
+table
+{
+  width: 100%;
+  margin-top: 16px;
+  overflow-x: auto;
+}
+table td,
+table th
+{
+  padding: 8px;
+  font-size: .85em;
+  text-align: left;
+}
+table th
+{
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+}
+table td
+{
+  border-bottom: 1px solid #eee;
+}
+table tr:nth-child(odd)
+{
+  background-color: #fcfcfc;
+}
+table tr:nth-child(even)
+{
+  background-color: #f5f5f5;
+}
+table a
+{
+  display: block;
+}
+hr
+{
+  border-bottom: 1px solid #eee;
+  margin: 8px 0;
+}
+.scope
+{
+  margin: 0 auto;
+}
+@media(max-width:1920px){.scope{max-width:1600px}}
+@media(max-width:1620px){.scope{max-width:1440px}}
+@media(max-width:1460px){.scope{max-width:1280px}}
+@media(max-width:1300px){.scope{max-width:1024px}}
+@media(max-width:1044px){.scope{max-width:960px }}
+@media(max-width:980px ){.scope{max-width:840px }}
+@media(max-width:860px ){.scope{max-width:720px }}
+@media(max-width:740px ){.scope{max-width:600px }}
+@media(max-width:620px ){.scope{max-width:480px }}
+@media(max-width:500px ){.scope{max-width:400px }}
+@media(max-width:420px ){.scope{max-width:360px }}
+@media(max-width:380px ){.scope{max-width:auto  }}
+
+@media(max-width:740px )
+{
+  main > navigation,
+  main > segment
+  {
+    width:100%;
+    border: 0;
+  }
+}
+.container
+{
+  padding: 32px;
+  background: #151515;
+}
+.exception
+{
+  background: #300;
+  margin-top: 16px;
+  padding: 16px;
+}
+.exception h3,
+.exception p
+{
+  background: #600;
+  padding: 8px;
+  margin: 0;
+}
+.metric
+{
+  font-size: 3em;
+  margin-top: 16px;
+}
+.metric span
+{
+  color: #eee;
+  display: block;
+  background: #1a1a1a;
+  padding: 16px;
+  text-align: center;
+}
+[class^="chart-"] .dataset
+{
+  display: none;
+}
+[class^="chart-"] canvas
+{
+  margin-top: 16px;
+}
+.chart-google-sankey .google-visualization-tooltip 
+{
+  display: none;
+}
+pre.json
+{
+  padding: 16px;
+  background: #1a1a1a;
+}
+.layout .column-1-2,
+.layout .column-2-2
+{
+  width: 50%;
+}
+.layout .column-1-2
+{
+  float: left;
+}
+.layout .column-1-2 > .container
+{
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 16px;
+}
+.layout .column-2-2
+{
+  float: right;
+}
+.layout .column-2-2 > .container
+{
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 16px;
+}
+.layout .column-1-3,
+.layout .column-2-3
+{
+  float: left;
+  width: 33.33%;
+}
+.layout .column-1-3 > .container
+{
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 16px;
+}
+.layout .column-2-3 > .container
+{
+  padding-top: 0px;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+.layout .column-3-3
+{
+  float: right;
+  width: 33.33%;
+}
+.layout .column-3-3 > .container
+{
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 16px;
+}
