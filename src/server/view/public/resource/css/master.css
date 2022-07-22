@@ -297,7 +297,8 @@ hr
 {
   display: none;
 }
-[class^="chart-"] canvas
+[class^="chart-"] canvas,
+[class^="chart-google-"]
 {
   margin-top: 16px;
 }
