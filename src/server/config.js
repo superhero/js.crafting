@@ -22,15 +22,24 @@ module.exports =
             input       : false,
             permission  : '*'
           },
+          'configuration':
+          {
+            url         : '/_configuration',
+            method      : 'get',
+            endpoint    : 'api/configuration',
+            view        : 'core/http/server/view/json',
+            input       : false,
+            output      : false
+          },
           'read':
           {
-            url       : '.*',
-            method    : 'get',
-            endpoint  : 'api/read',
-            view      : '@superhero/core.handlebars',
-            template  : 'view/template/layout',
-            input     : false,
-            output    : false
+            url         : '.*',
+            method      : 'get',
+            endpoint    : 'api/read',
+            view        : '@superhero/core.handlebars',
+            template    : 'view/template/layout',
+            input       : false,
+            output      : false
           }
         }
       }
@@ -56,6 +65,15 @@ module.exports =
     gateway:
     {
       debug:false 
+    }
+  },
+  view:
+  {
+    websocket:
+    {
+      protocol  : process.env.WS_PROTOCOL,
+      host      : process.env.WS_HOST,
+      port      : process.env.WS_PORT
     }
   }
 }

@@ -1,102 +1,120 @@
-const websocket = new WebSocketStream(
+fetch('//' + window.location.hostname + '/_configuration').then(async (response) =>
 {
-  protocol    : 'ws',
-  host        : window.location.hostname,
-  port        : 8080, // TODO!!! read from header
-  reconnect   : true,
-  silent      : true,
-  onReconnect : () => document.location.href = document.location.href
-})
-
-websocket.connect()
-
-websocket.on('input changed', (dto) => 
-{
-  const component = dom.select(`[data-cid="${dto.cid}"]`)
-  Object.keys(dto.data).forEach((key) => component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
-})
-
-websocket.on('input appended', (dto) => 
-{
-  const component = dom.select(`[data-cid="${dto.cid}"]`)
-  Object.keys(dto.data).forEach((key) => 
+  if(false === !!response.ok) 
   {
-    const 
-      data          = component.select(`[data-value="${key}"]`),
-      data_content  = data.getContent(),
-      data_json     = JSON.parse(data_content)
+    // if HTTP-status is 200-299
+    // get the response body (the method explained below)
+    const error = new Error('could not locate the configuration')
+    error.chain = { status:response.status }
+    throw error
+  }
 
-    data_json.push(dto.data[key])
-    data.setContent(JSON.stringify(data_json))
-    dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
+  const 
+    config    = await response.json()
+
+  console.log(config)
+
+  const
+    websocket = new WebSocketStream(
+    {
+      protocol    : config.websocket.protocol || 'ws',
+      host        : config.websocket.host     || window.location.hostname,
+      port        : config.websocket.port     || 8080,
+      reconnect   : true,
+      silent      : true,
+      onReconnect : () => document.location.href = document.location.href
+    })
+
+  websocket.connect()
+
+  websocket.on('input changed', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    Object.keys(dto.data).forEach((key) => component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
+  })
+
+  websocket.on('input appended', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    Object.keys(dto.data).forEach((key) => 
+    {
+      const 
+        data          = component.select(`[data-value="${key}"]`),
+        data_content  = data.getContent(),
+        data_json     = JSON.parse(data_content)
+  
+      data_json.push(dto.data[key])
+      data.setContent(JSON.stringify(data_json))
+      dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
+    })
+  })
+  
+  websocket.on('input prepended', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    Object.keys(dto.data).forEach((key) => 
+    {
+      const 
+        data          = component.select(`[data-value="${key}"]`),
+        data_content  = data.getContent(),
+        data_json     = JSON.parse(data_content)
+  
+      data_json.unshift(dto.data[key])
+      data.setContent(JSON.stringify(data_json))
+      dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
+    })
+  })
+  
+  websocket.on('input adjusted', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    Object.keys(dto.data).forEach((key) => 
+    {
+      const 
+        data          = component.select(`[data-value="${key}"]`),
+        data_content  = data.getContent(),
+        data_json     = JSON.parse(data_content)
+  
+      data_json.shift()
+      data_json.push(dto.data[key])
+      data.setContent(JSON.stringify(data_json))
+      dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
+    })
+  })
+  
+  websocket.on('input removed pop', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    Object.keys(dto.data).forEach((key) => 
+    {
+      const 
+        data          = component.select(`[data-value="${key}"]`),
+        data_content  = data.getContent(),
+        data_json     = JSON.parse(data_content)
+  
+      data_json.pop()
+      data.setContent(JSON.stringify(data_json))
+      dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
+    })
+  })
+  
+  websocket.on('input removed shift', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    Object.keys(dto.data).forEach((key) => 
+    {
+      const 
+        data          = component.select(`[data-value="${key}"]`),
+        data_content  = data.getContent(),
+        data_json     = JSON.parse(data_content)
+  
+      data_json.shift()
+      data.setContent(JSON.stringify(data_json))
+      dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
+    })
   })
 })
-
-websocket.on('input prepended', (dto) => 
-{
-  const component = dom.select(`[data-cid="${dto.cid}"]`)
-  Object.keys(dto.data).forEach((key) => 
-  {
-    const 
-      data          = component.select(`[data-value="${key}"]`),
-      data_content  = data.getContent(),
-      data_json     = JSON.parse(data_content)
-
-    data_json.unshift(dto.data[key])
-    data.setContent(JSON.stringify(data_json))
-    dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
-  })
-})
-
-websocket.on('input adjusted', (dto) => 
-{
-  const component = dom.select(`[data-cid="${dto.cid}"]`)
-  Object.keys(dto.data).forEach((key) => 
-  {
-    const 
-      data          = component.select(`[data-value="${key}"]`),
-      data_content  = data.getContent(),
-      data_json     = JSON.parse(data_content)
-
-    data_json.shift()
-    data_json.push(dto.data[key])
-    data.setContent(JSON.stringify(data_json))
-    dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
-  })
-})
-
-websocket.on('input removed pop', (dto) => 
-{
-  const component = dom.select(`[data-cid="${dto.cid}"]`)
-  Object.keys(dto.data).forEach((key) => 
-  {
-    const 
-      data          = component.select(`[data-value="${key}"]`),
-      data_content  = data.getContent(),
-      data_json     = JSON.parse(data_content)
-
-    data_json.pop()
-    data.setContent(JSON.stringify(data_json))
-    dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
-  })
-})
-
-websocket.on('input removed shift', (dto) => 
-{
-  const component = dom.select(`[data-cid="${dto.cid}"]`)
-  Object.keys(dto.data).forEach((key) => 
-  {
-    const 
-      data          = component.select(`[data-value="${key}"]`),
-      data_content  = data.getContent(),
-      data_json     = JSON.parse(data_content)
-
-    data_json.shift()
-    data.setContent(JSON.stringify(data_json))
-    dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
-  })
-})
-
+  
 function createGraph(element)
 {
   const 
@@ -122,6 +140,25 @@ const dataset_renderer = {}
 
 dom.on('DOMContentLoaded', () =>
 {
+  /*
+  dom.select('.input-slider').get().forEach((element) =>
+  {
+    const
+      input = dom.from(element),
+      cid   = input.getData('cid')
+
+    dataset_renderer[cid] = () =>
+    {
+      const
+        high  = input.select('[data-value="high"]'),
+        low   = input.select('[data-value="low"]')
+
+      // emit somehow...
+    }
+    dataset_renderer[cid]()
+  })
+  */
+
   dom.select('.chart-line').get().forEach((element) =>
   {
     const
@@ -145,8 +182,8 @@ dom.on('DOMContentLoaded', () =>
   dom.select('.chart-bar').get().forEach((element) =>
   {
     const
-      graph   = createGraph(element),
-      cid     = dom.from(element).getData('cid')
+      graph = createGraph(element),
+      cid   = dom.from(element).getData('cid')
 
     dataset_renderer[cid] = () =>
     {
@@ -165,8 +202,8 @@ dom.on('DOMContentLoaded', () =>
   dom.select('.chart-area').get().forEach((element) =>
   {
     const
-      graph   = createGraph(element),
-      cid     = dom.from(element).getData('cid')
+      graph = createGraph(element),
+      cid   = dom.from(element).getData('cid')
 
     dataset_renderer[cid] = () =>
     {
@@ -185,8 +222,8 @@ dom.on('DOMContentLoaded', () =>
   dom.select('.chart-candle').get().forEach((element) =>
   {
     const
-      graph   = createGraph(element),
-      cid     = dom.from(element).getData('cid')
+      graph = createGraph(element),
+      cid   = dom.from(element).getData('cid')
 
     dataset_renderer[cid] = () =>
     {
@@ -206,8 +243,8 @@ dom.on('DOMContentLoaded', () =>
   dom.select('.chart-pie').get().forEach((element) =>
   {
     const
-      graph   = createGraph(element),
-      cid     = dom.from(element).getData('cid')
+      graph = createGraph(element),
+      cid   = dom.from(element).getData('cid')
 
     dataset_renderer[cid] = () =>
     {
@@ -225,8 +262,8 @@ dom.on('DOMContentLoaded', () =>
   dom.select('.chart-donut').get().forEach((element) =>
   {
     const
-      graph   = createGraph(element),
-      cid     = dom.from(element).getData('cid')
+      graph = createGraph(element),
+      cid   = dom.from(element).getData('cid')
 
     dataset_renderer[cid] = () =>
     {
