@@ -1,8 +1,9 @@
 {
   "name": "crafting",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Data report composer",
   "main": "src/server/index.js",
+  "repository": "git@github.com:superhero/js.crafting.git",
   "scripts": {
     "test": "syntax-check",
     "start": "nodemon index.js"
