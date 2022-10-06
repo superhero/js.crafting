@@ -1,6 +1,6 @@
 fetch('//' + window.location.hostname + '/_configuration').then(async (response) =>
 {
-  if(false === !!response.ok) 
+  if(false === !!response.ok)
   {
     // if HTTP-status is 200-299
     // get the response body (the method explained below)
@@ -9,8 +9,7 @@ fetch('//' + window.location.hostname + '/_configuration').then(async (response)
     throw error
   }
 
-  const 
-    config    = await response.json()
+  const config = await response.json()
 
   console.log(config)
 
@@ -26,6 +25,13 @@ fetch('//' + window.location.hostname + '/_configuration').then(async (response)
     })
 
   websocket.connect()
+
+  websocket.on('size changed', (dto) => 
+  {
+    const component = dom.select(`[data-cid="${dto.cid}"]`)
+    component.setCss('width',   dto.data.width)
+    component.setCss('height',  dto.data.height)
+  })
 
   websocket.on('input changed', (dto) => 
   {
@@ -279,18 +285,54 @@ dom.on('DOMContentLoaded', () =>
   })
 
   google.charts.load('current', { 'packages':['sankey'] })
-  google.charts.setOnLoadCallback(() => 
+  google.charts.setOnLoadCallback(() =>
   {
+    // chart options
+    const
+      google_sankey_options_colors = 
+      [
+        '#fff', '#ddd', '#bbb', '#999', '#777'
+      ],
+      google_sankey_options =
+      {
+        height  : 200,
+        tooltip : { isHtml: true },
+        sankey  : 
+        {
+          node: 
+          {
+            colors: google_sankey_options_colors,
+            width: 4,
+            interactivity: false,
+            nodePadding: 32,
+            labelPadding: 8,
+            label: 
+            { 
+              fontName: 'Roboto Condensed',
+              fontSize: 14,
+              color: '#000',
+              bold: true
+            }
+          },
+          link: 
+          {
+            colorMode: 'gradient',
+            colors: google_sankey_options_colors
+          }
+        }
+      }
+
     dom.select('.chart-google-sankey').get().forEach((element) =>
     {
       const
-        chart = dom.from(element).select('.sankey-graph'),
+        root  = dom.from(element),
+        chart = root.select('.sankey-graph'),
         graph = new google.visualization.Sankey(chart.get(0)),
-        cid   = dom.from(element).getData('cid')
-  
+        cid   = root.getData('cid')
+
       dataset_renderer[cid] = () =>
       {
-        const 
+        const
           dataset = getDataset(element),
           data    = new google.visualization.DataTable()
 
@@ -299,43 +341,10 @@ dom.on('DOMContentLoaded', () =>
         data.addColumn('number', 'Weight')
         data.addRows(dataset)
   
-        // chart options  
-        const 
-          colors = 
-          [
-            '#fff', '#ddd', '#bbb', '#999', '#777'
-          ],
-          options = 
-          {
-            height  : 400,
-            tooltip : { isHtml: true },
-            sankey  : 
-            {
-              node: 
-              {
-                colors: colors,
-                width: 4,
-                interactivity: false,
-                nodePadding: 32,
-                labelPadding: 8,
-                label: 
-                { 
-                  fontName: 'Roboto Condensed',
-                  fontSize: 14,
-                  color: '#000',
-                  bold: true
-                }
-              },
-              link: 
-              {
-                colorMode: 'gradient',
-                colors: colors
-              }
-            }
-          }
-  
+        google_sankey_options.width   = root.getWidth().client
+        google_sankey_options.height  = root.getHeight().client
         // instantiates and draws our chart, passing in some options.
-        graph.draw(data, options)
+        graph.draw(data, google_sankey_options)
       }
       dataset_renderer[cid]()
     })

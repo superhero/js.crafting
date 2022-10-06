@@ -1,6 +1,6 @@
 {
   "name": "crafting",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Data report composer",
   "main": "src/server/index.js",
   "scripts": {
