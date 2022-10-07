@@ -1,3 +1,13 @@
+# Crafting
+
+Licence: [MIT](https://opensource.org/licenses/MIT)
+
+----
+
+[![npm version](https://badge.fury.io/js/crafting.svg)](https://badge.fury.io/js/crafting)
+
+----
+
 A library for backend engineers to craft reports without writing any frontend code...
 
 # Screenshot
