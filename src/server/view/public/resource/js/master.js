@@ -309,7 +309,7 @@ dom.on('DOMContentLoaded', () =>
             {
               fontName: 'Roboto Condensed',
               fontSize: 14,
-              color: '#000',
+              color: '#fc7a00',
               bold: true
             }
           },
