@@ -365,3 +365,8 @@ pre.json
   padding-right: 0px;
   padding-left: 16px;
 }
+.chart-google-sankey
+{
+  overflow-x: auto;
+  overflow-y: hidden;
+}
