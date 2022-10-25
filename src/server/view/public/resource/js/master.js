@@ -295,8 +295,6 @@ dom.on('DOMContentLoaded', () =>
       ],
       google_sankey_options =
       {
-        height  : 500,
-        weight  : 1500,
         tooltip : { isHtml: true },
         sankey  :
         {
@@ -342,8 +340,8 @@ dom.on('DOMContentLoaded', () =>
         data.addColumn('number', 'Weight')
         data.addRows(dataset)
   
-        google_sankey_options.width   = root.getWidth().client
-        google_sankey_options.height  = root.getHeight().client
+        google_sankey_options.width   = 1500 // root.getWidth().client
+        google_sankey_options.height  =  500 // root.getHeight().client
         // instantiates and draws our chart, passing in some options.
         graph.draw(data, google_sankey_options)
       }
