@@ -289,32 +289,33 @@ dom.on('DOMContentLoaded', () =>
   {
     // chart options
     const
-      google_sankey_options_colors = 
+      google_sankey_options_colors =
       [
         '#fff', '#ddd', '#bbb', '#999', '#777'
       ],
       google_sankey_options =
       {
-        height  : 200,
+        height  : 500,
+        weight  : 1500,
         tooltip : { isHtml: true },
-        sankey  : 
+        sankey  :
         {
-          node: 
+          node:
           {
             colors: google_sankey_options_colors,
             width: 4,
             interactivity: false,
             nodePadding: 32,
             labelPadding: 8,
-            label: 
-            { 
+            label:
+            {
               fontName: 'Roboto Condensed',
               fontSize: 14,
               color: '#000',
               bold: true
             }
           },
-          link: 
+          link:
           {
             colorMode: 'gradient',
             colors: google_sankey_options_colors
