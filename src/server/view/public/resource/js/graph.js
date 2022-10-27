@@ -29,7 +29,7 @@ class Graph
     const
       xExtent   = d3.extent(data, d => d[0]),
       yExtent   = [Math.min(...data.map(d => d[4] || d[1])), Math.max(...data.map(d => d[3] || d[1]))],
-      diffHours = Math.abs(Math.round(((xExtent[0].getTime() - xExtent[1].getTime()) / 1e3) / (60 * 60)))
+      diffHours = data.length < 2 ? 0 : Math.abs(Math.round(((xExtent[0].getTime() - xExtent[1].getTime()) / 1e3) / (60 * 60)))
 
     this.xScale.domain(xExtent)
     this.yScale.domain(yExtent)
