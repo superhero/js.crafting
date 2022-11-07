@@ -90,10 +90,10 @@ crafting.text('This is a demo that documents how to build a report using the "cr
     crafting.caption('Area chart remove and append new data in a 10 sec interval')
 
     const 
-      random_walk = [], //crafting.random_walk(50).map((v) => [v, v + 15 + crafting.random_integer(5)]),
+      random_walk = crafting.random_walk(50).map((v) => [v, v + 15 + crafting.random_integer(5)]),
       chart_area  = crafting.chart_area({ dataset:[ random_walk ] })
 
-    setInterval(() => 
+    setInterval(() =>
     {
       if(Math.floor(Date.now() / 1e4) % 2)
       {
