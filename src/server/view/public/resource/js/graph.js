@@ -231,13 +231,13 @@ class Graph
    * @param {Array<number>} data [4,7,2]
    * @param {number} alpha
    */
-  drawPie(data, alpha = 1)
+  drawPie(data, colors, alpha = 1)
   {
     const
       center  = Math.min(this.width, this.height) / 2,
       d3Pie   = d3.pie(),
       pie     = d3Pie(data),
-      color   = d3.scaleOrdinal(['#fff','#ccc','#aaa','#888','#666'])
+      color   = d3.scaleOrdinal(colors)
 
     for(let i = 0; i < pie.length; i++)
     {
@@ -263,13 +263,13 @@ class Graph
    * @param {Array<number>} data [4,7,2]
    * @param {number} alpha
    */
-  drawDonut(data, alpha = 1)
+  drawDonut(data, colors, alpha = 1)
   {
     const
       center  = Math.min(this.width, this.height) / 2,
       d3Pie   = d3.pie(),
       pie     = d3Pie(data),
-      color   = d3.scaleOrdinal(['#fff','#ccc','#aaa','#888','#666'])
+      color   = d3.scaleOrdinal(colors)
 
     for(let i = 0; i < pie.length; i++)
     {
