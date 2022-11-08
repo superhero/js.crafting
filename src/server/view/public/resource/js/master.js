@@ -177,13 +177,13 @@ dom.on('DOMContentLoaded', () =>
 
       dataset_renderer[cid] = () =>
       {
+        graph.clear()
         const dataset = getDataset(element)
         let n = 0
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
-          graph.clear()
           graph.setScale(data)
           graph.drawTimebasedLine(color, data)
         }
@@ -199,15 +199,15 @@ dom.on('DOMContentLoaded', () =>
 
       dataset_renderer[cid] = () =>
       {
+        graph.clear()
         const dataset = getDataset(element)
-        let n = 0
+        let n = 0, i = 0
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
-          graph.clear()
           graph.setScale(data)
-          graph.drawTimebasedBars(color, data)
+          graph.drawTimebasedBars(color, data, i++, 2)
         }
       }
       dataset_renderer[cid]()
@@ -221,13 +221,13 @@ dom.on('DOMContentLoaded', () =>
 
       dataset_renderer[cid] = () =>
       {
+        graph.clear()
         const dataset = getDataset(element)
         let n = 0
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), ...v])
-          graph.clear()
           graph.setScale(data)
           graph.drawTimebasedArea(color, data)
         }
@@ -243,12 +243,11 @@ dom.on('DOMContentLoaded', () =>
 
       dataset_renderer[cid] = () =>
       {
+        graph.clear()
         const dataset = getDataset(element)
-
         for(let data of dataset)
         {
           data = data.map((v, i) => [new Date(i), ...v])
-          graph.clear()
           graph.setScale(data)
           graph.drawTimebasedCandels(config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
         }
@@ -266,9 +265,9 @@ dom.on('DOMContentLoaded', () =>
       {
         const dataset = getDataset(element)
 
+        graph.clear()
         for(let data of dataset)
         {
-          graph.clear()
           graph.drawPie(data, config.color.graph)
         }
       }
@@ -285,9 +284,9 @@ dom.on('DOMContentLoaded', () =>
       {
         const dataset = getDataset(element)
 
+        graph.clear()
         for(let data of dataset)
         {
-          graph.clear()
           graph.drawDonut(data, config.color.graph)
         }
       }

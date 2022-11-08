@@ -146,10 +146,11 @@ class Graph
   /**
    * @param {string} color
    * @param {Array<number>} data [x, y]
-   * @param {number} width
-   * @param {number} alpha
+   * @param {number} [sibling=0] how many bars needs to be placed next to this one before the next one in this data series will be displayed again
+   * @param {number} [width=1]
+   * @param {number} [alpha=1]
    */
-  drawTimebasedBars(color, data, width = 1, alpha = 1)
+  drawTimebasedBars(color, data, sibling=0, width=1, alpha=1)
   {
     this.context.beginPath()
 
@@ -159,11 +160,11 @@ class Graph
     data.forEach((d) =>
     {
       const
-      x       = this.xScale(d[0]),
-      y       = this.yScale(d[1]),
-      height  = this.height - y
+        x       = this.xScale(d[0]),
+        y       = this.yScale(d[1]),
+        height  = this.height - y
 
-      this.context.fillRect(x, y, width, height)
+      this.context.fillRect(x + (width * sibling), y, width, height)
     })
 
     this.context.closePath()

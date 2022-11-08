@@ -74,15 +74,21 @@ crafting.text('This is a demo that documents how to build a report using the "cr
     crafting.caption('Bar chart adjusted data')
     
     const 
-      random_walk = crafting.random_walk(100),
-      chart_bar   = crafting.chart_bar({ dataset:[ random_walk ] })
+      random_walk_1 = crafting.random_walk(100),
+      random_walk_2 = crafting.random_walk(100),
+      chart_bar     = crafting.chart_bar({ dataset:[ random_walk_1, random_walk_2 ] })
 
     setInterval(() => 
     {
-      const input = random_walk[random_walk.length] = crafting.random_walk_next(random_walk[random_walk.length - 1])
-      random_walk.shift()
-      chart_bar.input({ dataset:[ random_walk ] })
-      chart_bar.emit2all('input adjusted', { 'dataset.0':input })
+      const 
+        input_1 = random_walk_1[random_walk_1.length] = crafting.random_walk_next(random_walk_1[random_walk_1.length - 1]),
+        input_2 = random_walk_2[random_walk_2.length] = crafting.random_walk_next(random_walk_2[random_walk_2.length - 1])
+
+      random_walk_1.shift()
+      random_walk_2.shift()
+
+      chart_bar.input({ dataset:[ random_walk_1, random_walk_2 ] })
+      chart_bar.emit2all('input adjusted', { 'dataset.0':input_1, 'dataset.1':input_2 })
     }, 1e3)
   }
   {
