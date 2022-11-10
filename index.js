@@ -169,9 +169,9 @@ crafting.text('This is a demo that documents how to build a report using the "cr
     const 
       dataset = 
       [
-        [ 'A', 'X', 5, ],
-        [ 'A', 'Y', 7, ],
-        [ 'A', 'Z', 6, ],
+        [ 'A', 'X', 5 ],
+        [ 'A', 'Y', 7 ],
+        [ 'A', 'Z', 6 ],
 
         [ 'B', 'X', 2 ],
         [ 'B', 'Y', 9 ],
