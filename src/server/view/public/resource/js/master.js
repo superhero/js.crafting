@@ -28,17 +28,11 @@ dom.on('DOMContentLoaded', () =>
 
     websocket.connect()
 
-    websocket.on('size changed', (dto) => 
-    {
-      const component = dom.select(`[data-cid="${dto.cid}"]`)
-      component.setCss('width',   dto.data.width)
-      component.setCss('height',  dto.data.height)
-    })
-
     websocket.on('input changed', (dto) => 
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)
       Object.keys(dto.data).forEach((key) => component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
+      dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
     })
 
     websocket.on('input appended', (dto) => 
@@ -48,7 +42,7 @@ dom.on('DOMContentLoaded', () =>
       {
         const 
           data          = component.select(`[data-value="${key}"]`),
-          data_content  = data.getContent(),
+          data_content  = data.getContent() || '[]',
           data_json     = JSON.parse(data_content)
     
         data_json.push(dto.data[key])
@@ -64,7 +58,7 @@ dom.on('DOMContentLoaded', () =>
       {
         const 
           data          = component.select(`[data-value="${key}"]`),
-          data_content  = data.getContent(),
+          data_content  = data.getContent() || '[]',
           data_json     = JSON.parse(data_content)
     
         data_json.unshift(dto.data[key])
@@ -80,7 +74,7 @@ dom.on('DOMContentLoaded', () =>
       {
         const 
           data          = component.select(`[data-value="${key}"]`),
-          data_content  = data.getContent(),
+          data_content  = data.getContent() || '[]',
           data_json     = JSON.parse(data_content)
     
         data_json.shift()
@@ -97,7 +91,7 @@ dom.on('DOMContentLoaded', () =>
       {
         const 
           data          = component.select(`[data-value="${key}"]`),
-          data_content  = data.getContent(),
+          data_content  = data.getContent() || '[]',
           data_json     = JSON.parse(data_content)
     
         data_json.pop()
@@ -113,7 +107,7 @@ dom.on('DOMContentLoaded', () =>
       {
         const 
           data          = component.select(`[data-value="${key}"]`),
-          data_content  = data.getContent(),
+          data_content  = data.getContent() || '[]',
           data_json     = JSON.parse(data_content)
     
         data_json.shift()
@@ -338,7 +332,8 @@ dom.on('DOMContentLoaded', () =>
         dataset_renderer[cid] = () =>
         {
           const
-            dataset = getDataset(element),
+            input   = root.select('[data-value="input"]').getContent(),
+            dataset = JSON.parse(input),
             data    = new google.visualization.DataTable()
 
           data.addColumn('string', 'From')

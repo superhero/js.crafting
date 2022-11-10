@@ -1,7 +1,5 @@
 <div class="chart-google-sankey" data-cid="{{ cid }}">
   <div class="sankey-graph"></div>
 
-  {{# each dataset }}
-    <div class="dataset" data-value="dataset.{{ @key }}">{{{ jsonStringify this }}}</div>
-  {{/ each }}
+  <div class="dataset" data-value="input">{{ input }}</div>
 </div>

@@ -8,6 +8,7 @@ class CraftingComponentMetric extends Component
   input(input)
   {
     super.input({ input })
+    super.emit2all('input changed', { input })
   }
 }
 

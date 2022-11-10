@@ -43,7 +43,6 @@ crafting.text('This is a demo that documents how to build a report using the "cr
     {
       const input = ++i < 10 ? i : i -= 9
       metric_column1.input(input)
-      metric_column1.emit2all('input changed', { input })
     }, 1e3)
 
     layout.column2.metric(6)
@@ -166,9 +165,9 @@ crafting.text('This is a demo that documents how to build a report using the "cr
   {
     crafting.header('Google sankey chart')
     crafting.caption('Google sankey chart')
-    crafting.chart_google_sankey(
-    {
-      dataset:
+
+    const 
+      dataset = 
       [
         [ 'A', 'X', 5, ],
         [ 'A', 'Y', 7, ],
@@ -189,7 +188,25 @@ crafting.text('This is a demo that documents how to build a report using the "cr
         [ 'Z', '1', 2 ],
         [ 'Z', '2', 9 ],
         [ 'Z', '3', 0 ]
-      ]
-    })
+      ],
+      chart_sankey = crafting.chart_google_sankey(dataset)
+
+    let i = 1, n = 4
+    setInterval(() => 
+    {
+      if(i > 3 
+      && n > 6)
+      {
+        i = 1
+        n = 4
+
+        dataset.pop()
+        dataset.pop()
+        dataset.pop()
+      }
+
+      dataset.push([ `${i++}`, `${n++}`, 1 ])
+      chart_sankey.input(dataset)
+    }, 1e3)
   }
 })

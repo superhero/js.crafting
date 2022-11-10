@@ -8,7 +8,7 @@ const schema =
   {
     'type' : 'integer'
   },
-  dataset:
+  input:
   {
     'type' : 'csv'
   }
