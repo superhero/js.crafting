@@ -293,6 +293,16 @@ hr
   padding: 16px;
   text-align: center;
 }
+[class^="chart-"]
+{
+  position: relative;
+}
+[class^="chart-"] canvas.hoover
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 [class^="chart-"] .dataset
 {
   display: none;

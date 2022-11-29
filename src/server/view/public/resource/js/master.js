@@ -115,15 +115,16 @@ dom.on('DOMContentLoaded', () =>
         dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
       })
     })
-    
+
     function createGraph(element)
     {
-      const 
+      const
         chart   = dom.from(element),
-        canvas  = chart.select('canvas').get(0),
+        canvas  = chart.select('canvas.chart').get(0),
+        hoover  = chart.select('canvas.hoover').get(0),
         width   = chart.getWidth().offset, 
         height  = 300,
-        graph   = new Graph(canvas, width, height)
+        graph   = new Graph(canvas, hoover, width, height)
 
       return graph
     }
@@ -167,11 +168,12 @@ dom.on('DOMContentLoaded', () =>
     {
       const
         graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
 
       dataset_renderer[cid] = () =>
       {
-        graph.clear()
+        graph.clear(context)
         const dataset = getDataset(element)
         let n = 0
         for(let data of dataset)
@@ -179,7 +181,7 @@ dom.on('DOMContentLoaded', () =>
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
           graph.setScale(data)
-          graph.drawTimebasedLine(color, data)
+          graph.drawTimebasedLine(context, color, data)
         }
       }
       dataset_renderer[cid]()
@@ -188,12 +190,13 @@ dom.on('DOMContentLoaded', () =>
     dom.select('.chart-bar').get().forEach((element) =>
     {
       const
-        graph = createGraph(element),
-        cid   = dom.from(element).getData('cid')
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
 
       dataset_renderer[cid] = () =>
       {
-        graph.clear()
+        graph.clear(context)
         const dataset = getDataset(element)
         let n = 0, i = 0
         for(let data of dataset)
@@ -201,21 +204,28 @@ dom.on('DOMContentLoaded', () =>
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
           graph.setScale(data)
-          graph.drawTimebasedBars(color, data, i++, 2)
+          graph.drawTimebasedBars(context, color, data, i++, 1)
         }
       }
+
+      //onMouseMove[cid] = (event) =>
+      //{
+      //  graph.drawVerticalLine(event.x)
+      //}
+
       dataset_renderer[cid]()
     })
 
     dom.select('.chart-area').get().forEach((element) =>
     {
       const
-        graph = createGraph(element),
-        cid   = dom.from(element).getData('cid')
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
 
       dataset_renderer[cid] = () =>
       {
-        graph.clear()
+        graph.clear(context)
         const dataset = getDataset(element)
         let n = 0
         for(let data of dataset)
@@ -223,7 +233,7 @@ dom.on('DOMContentLoaded', () =>
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), ...v])
           graph.setScale(data)
-          graph.drawTimebasedArea(color, data)
+          graph.drawTimebasedArea(context, color, data)
         }
       }
       dataset_renderer[cid]()
@@ -232,18 +242,19 @@ dom.on('DOMContentLoaded', () =>
     dom.select('.chart-candle').get().forEach((element) =>
     {
       const
-        graph = createGraph(element),
-        cid   = dom.from(element).getData('cid')
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
 
       dataset_renderer[cid] = () =>
       {
-        graph.clear()
+        graph.clear(context)
         const dataset = getDataset(element)
         for(let data of dataset)
         {
           data = data.map((v, i) => [new Date(i), ...v])
           graph.setScale(data)
-          graph.drawTimebasedCandels(config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
+          graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
         }
       }
       dataset_renderer[cid]()
@@ -252,17 +263,18 @@ dom.on('DOMContentLoaded', () =>
     dom.select('.chart-pie').get().forEach((element) =>
     {
       const
-        graph = createGraph(element),
-        cid   = dom.from(element).getData('cid')
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
 
       dataset_renderer[cid] = () =>
       {
         const dataset = getDataset(element)
 
-        graph.clear()
+        graph.clear(context)
         for(let data of dataset)
         {
-          graph.drawPie(data, config.color.graph)
+          graph.drawPie(context, data, config.color.graph)
         }
       }
       dataset_renderer[cid]()
@@ -271,17 +283,18 @@ dom.on('DOMContentLoaded', () =>
     dom.select('.chart-donut').get().forEach((element) =>
     {
       const
-        graph = createGraph(element),
-        cid   = dom.from(element).getData('cid')
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
 
       dataset_renderer[cid] = () =>
       {
         const dataset = getDataset(element)
 
-        graph.clear()
+        graph.clear(context)
         for(let data of dataset)
         {
-          graph.drawDonut(data, config.color.graph)
+          graph.drawDonut(context, data, config.color.graph)
         }
       }
       dataset_renderer[cid]()

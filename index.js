@@ -79,7 +79,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
 
     setInterval(() => 
     {
-      const 
+      const
         input_1 = random_walk_1[random_walk_1.length] = crafting.random_walk_next(random_walk_1[random_walk_1.length - 1]),
         input_2 = random_walk_2[random_walk_2.length] = crafting.random_walk_next(random_walk_2[random_walk_2.length - 1])
 

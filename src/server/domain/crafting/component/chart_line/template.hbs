@@ -1,5 +1,6 @@
 <div class="chart-line" data-cid="{{ cid }}">
-  <canvas></canvas>
+  <canvas class="chart"></canvas>
+  <canvas class="hoover"></canvas>
 
   {{# each dataset }}
     <div class="dataset" data-value="dataset.{{ @key }}">{{{ jsonStringify this }}}</div>
