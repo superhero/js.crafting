@@ -5,9 +5,9 @@ class Crafting extends Component
   schema    = __dirname + '/schema'
   template  = __dirname + '/template'
 
-  constructor(cid, schemaComposer, handlebars, websocket, builder)
+  constructor(cid, manager, schemaComposer, handlebars, websocket, builder)
   {
-    super(cid, schemaComposer, handlebars, websocket)
+    super(cid, manager, schemaComposer, handlebars, websocket)
     this.builder  = builder
     this.sections = []
   }
@@ -33,15 +33,13 @@ class Crafting extends Component
 
   layout_columns_2()
   {
-    const 
+    const
       Component   = require('./component/layout_columns_2'),
-      component   = new Component(++this.cid, this.schemaComposer, this.handlebars, this.websocket),
+      component   = new Component(++this.builder.cid, this.manager, this.schemaComposer, this.handlebars, this.websocket),
       container1  = this.builder.build(),
       container2  = this.builder.build()
 
     component.input(container1, container2)
-
-    this.builder.eventbus.setObserver(component.id, component)
 
     this.sections.push(component)
 
@@ -52,14 +50,12 @@ class Crafting extends Component
   {
     const 
       Component   = require('./component/layout_columns_3'),
-      component   = new Component(++this.cid, this.schemaComposer, this.handlebars, this.websocket),
+      component   = new Component(++this.builder.cid, this.manager, this.schemaComposer, this.handlebars, this.websocket),
       container1  = this.builder.build(),
       container2  = this.builder.build(),
       container3  = this.builder.build()
 
     component.input(container1, container2, container3)
-
-    this.builder.eventbus.setObserver(component.id, component)
 
     this.sections.push(component)
 

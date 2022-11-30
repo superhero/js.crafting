@@ -44,17 +44,6 @@ module.exports =
         }
       }
     },
-    websocket:
-    {
-      routes:
-      {
-        'write':
-        {
-          event       : 'write',
-          endpoint    : 'api/component-state-changed'
-        }
-      }
-    },
     resource:
     {
       'directory' : 'view/public'
@@ -65,6 +54,14 @@ module.exports =
     gateway:
     {
       debug:false 
+    },
+    routes:
+    {
+      'click':
+      {
+        event     : 'click',
+        endpoint  : 'api/on-click'
+      }
     }
   },
   view:

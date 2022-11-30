@@ -1,7 +1,7 @@
 const
   Crafting            = require('.'),
   CraftingBuilder     = require('./builder'),
-  CraftingEventbus    = require('./eventbus'),
+  CraftingManager     = require('./manager'),
   LocatorConstituent  = require('superhero/core/locator/constituent')
 
 /**
@@ -19,8 +19,8 @@ class CraftingLocator extends LocatorConstituent
       path        = this.locator.locate('core/path'),
       handlebars  = this.locator.locate('@superhero/core.handlebars'),
       websocket   = this.locator.locate('websocket/server').websocket,
-      eventbus    = new CraftingEventbus(),
-      builder     = new CraftingBuilder(path, schema, handlebars, websocket, eventbus),
+      manager     = new CraftingManager(), 
+      builder     = new CraftingBuilder(manager, path, schema, handlebars, websocket),
       crafting    = builder.build()
 
     return crafting

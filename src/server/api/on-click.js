@@ -4,12 +4,12 @@ const Dispatcher = require('@superhero/core.websocket/src/server/dispatcher')
  * @memberof Server.Api
  * @extends {superhero/core/http/server/dispatcher}
  */
-class Write extends Dispatcher
+class OnClick extends Dispatcher
 {
   async dispatch()
   {
     const crafting = this.locator.locate('crafting')
-    await crafting.eventbus.emit(this.dto.cid, this.dto.name, this.dto.data, this.session)
+    crafting.manager.components[this.dto.cid].emit('click', this.dto)
   }
 
   async onError(error)
@@ -18,4 +18,4 @@ class Write extends Dispatcher
   }
 }
 
-module.exports = Write
+module.exports = OnClick

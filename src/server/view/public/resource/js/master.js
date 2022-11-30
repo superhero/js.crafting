@@ -116,6 +116,31 @@ dom.on('DOMContentLoaded', () =>
       })
     })
 
+    dom.on('mousemove', (event) => 
+    {
+      const chart = dom.from(event.target).parent('[class^="chart-"]', true)
+      if(chart)
+      {
+        const cid = chart.getData('cid')
+        cid in mouse_moved && mouse_moved[cid](event)
+      }
+    })
+
+    dom.on('click', (event) => 
+    {
+      const chart = dom.from(event.target).parent('[class^="chart-"]', true)
+      if(chart)
+      {
+        const 
+          cid   = chart.getData('cid'),
+          graph = charts[cid],
+          x     = graph.xScale.invert(event.offsetX)
+
+        console.log('emit click event...')
+        websocket.emit('click', { cid, x })
+      }
+    })
+
     function createGraph(element)
     {
       const
@@ -143,7 +168,10 @@ dom.on('DOMContentLoaded', () =>
       return n > config.color.graph.length - 1 ? 0 : n + 1
     }
 
-    const dataset_renderer = {}
+    const 
+      dataset_renderer  = {},
+      mouse_moved       = {},
+      charts            = {}
 
     /*
     dom.select('.input-slider').get().forEach((element) =>
@@ -171,6 +199,8 @@ dom.on('DOMContentLoaded', () =>
         context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
 
+      charts[cid] = graph
+
       dataset_renderer[cid] = () =>
       {
         graph.clear(context)
@@ -192,7 +222,10 @@ dom.on('DOMContentLoaded', () =>
       const
         graph   = createGraph(element),
         context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        hoover  = dom.from(element).select('canvas.hoover').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
+
+      charts[cid] = graph
 
       dataset_renderer[cid] = () =>
       {
@@ -208,10 +241,19 @@ dom.on('DOMContentLoaded', () =>
         }
       }
 
-      //onMouseMove[cid] = (event) =>
-      //{
-      //  graph.drawVerticalLine(event.x)
-      //}
+      mouse_moved[cid] = (event) =>
+      {
+        graph.clear(hoover)
+
+        const 
+          invertedX = graph.xScale.invert(event.offsetX),
+          x         = graph.xScale(invertedX),
+          dataset   = getDataset(element),
+          width     = dataset.length,
+          offset    = Math.floor(width / 2)
+
+        graph.drawVerticalLine(hoover, x + offset, '#fff', width, 0.3)
+      }
 
       dataset_renderer[cid]()
     })
@@ -222,6 +264,8 @@ dom.on('DOMContentLoaded', () =>
         graph   = createGraph(element),
         context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
+
+      charts[cid] = graph
 
       dataset_renderer[cid] = () =>
       {
@@ -246,6 +290,8 @@ dom.on('DOMContentLoaded', () =>
         context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
 
+      charts[cid] = graph
+
       dataset_renderer[cid] = () =>
       {
         graph.clear(context)
@@ -267,6 +313,8 @@ dom.on('DOMContentLoaded', () =>
         context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
 
+      charts[cid] = graph
+
       dataset_renderer[cid] = () =>
       {
         const dataset = getDataset(element)
@@ -286,6 +334,8 @@ dom.on('DOMContentLoaded', () =>
         graph   = createGraph(element),
         context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
         cid     = dom.from(element).getData('cid')
+
+      charts[cid] = graph
 
       dataset_renderer[cid] = () =>
       {
