@@ -34,13 +34,13 @@ class CraftingComponent
     this.websocket.emit(socket, name, { cid:this.cid, data }, toAll)
   }
 
-  emit(name, event)
+  emit(name, event, socket)
   {
     if(name in this.observers)
     {
       for(const observer of this.observers[name])
       {
-        observer(event)
+        observer(event, socket)
       }
     }
   }
