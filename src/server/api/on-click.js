@@ -9,7 +9,7 @@ class OnClick extends Dispatcher
   async dispatch()
   {
     const crafting = this.locator.locate('crafting')
-    crafting.manager.components[this.dto.cid].emit('click', this.dto, this.session)
+    crafting.manager.components[this.dto.cid].emit('click', this.dto, this.session.socket)
   }
 
   async onError(error)
