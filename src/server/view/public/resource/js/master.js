@@ -28,6 +28,8 @@ dom.on('DOMContentLoaded', () =>
 
     websocket.connect()
 
+    websocket.on('foobar', (dto) => console.log('foobar', dto))
+
     websocket.on('input changed', (dto) => 
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)
