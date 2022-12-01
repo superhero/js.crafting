@@ -77,8 +77,6 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       random_walk_2 = crafting.random_walk(100),
       chart_bar     = crafting.chart_bar({ dataset:[ random_walk_1, random_walk_2 ] })
 
-    chart_bar.on('click', (event) => console.log(event))
-
     setInterval(() => 
     {
       const

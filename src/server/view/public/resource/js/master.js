@@ -136,7 +136,6 @@ dom.on('DOMContentLoaded', () =>
           graph = charts[cid],
           x     = graph.xScale.invert(event.offsetX)
 
-        console.log('emit click event...')
         websocket.emit('click', { cid, x })
       }
     })
