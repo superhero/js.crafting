@@ -8,14 +8,14 @@ const
 core.add('@superhero/core.websocket/src/server')
 core.add('@superhero/core.handlebars')
 core.add('@superhero/core.resource')
-  
+
 core.add('schema', __dirname + '/../schema')
 core.add('server', __dirname + '/../server')
 
-core.load()
-
 async function bootstrap()
 {
+  core.load()
+
   await core.locate('core/bootstrap').bootstrap()
 
   core.locate('core/http/server').listen(process.env.HTTP_PORT ||   80)
