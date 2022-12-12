@@ -1,4 +1,4 @@
-require('./src/server').then((core) =>
+require('./src/server').bootstrap().then((core) =>
 {
   const crafting = core.locate('crafting')
 

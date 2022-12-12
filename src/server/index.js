@@ -14,12 +14,17 @@ core.add('server', __dirname + '/../server')
 
 core.load()
 
-const promise = core.locate('core/bootstrap').bootstrap().then(() =>
+async function bootstrap()
 {
+  await core.locate('core/bootstrap').bootstrap()
+
   core.locate('core/http/server').listen(process.env.HTTP_PORT ||   80)
   core.locate('websocket/server').listen(process.env.WS_PORT   || 8080)
-  core.locate('core/console').log('	✔ http server, port: '      + (process.env.HTTP_PORT ||   80))
-  core.locate('core/console').log('	✔ websocket server, port: ' + (process.env.WS_PORT   || 8080))
-})
 
-module.exports = promise.then(() => core)
+  core.locate('core/console').log('	✔ http server, port:      ' + (process.env.HTTP_PORT ||   80))
+  core.locate('core/console').log('	✔ websocket server, port: ' + (process.env.WS_PORT   || 8080))
+
+  return core
+}
+
+module.exports = { bootstrap, core }
