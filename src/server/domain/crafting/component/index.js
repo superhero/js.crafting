@@ -22,7 +22,7 @@ class CraftingComponent
 
   emit2socket(name, data, socket)
   {
-    this.websocket.emit(socket, name, { cid:this.cid, data })
+    socket.emit(name, { cid:this.cid, data })
   }
 
   emit2all(name, data)
