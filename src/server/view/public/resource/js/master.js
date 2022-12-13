@@ -33,7 +33,12 @@ dom.on('DOMContentLoaded', () =>
     websocket.on('input changed', (dto) => 
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)
-      Object.keys(dto.data).forEach((key) => component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
+
+      Object.keys(dto.data).forEach(
+        (key) => Array.isArray(dto.data[key]) 
+          ? dto.data[key].forEach((i) => component.select(`[data-value="${key}.${i}"]`).setContent(dto.data[key][i])) 
+          : component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
+
       dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
     })
 
