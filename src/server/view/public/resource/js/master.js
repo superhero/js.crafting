@@ -34,9 +34,11 @@ dom.on('DOMContentLoaded', () =>
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)
 
+      console.log('dto', dto)
+
       Object.keys(dto.data).forEach(
         (key) => Array.isArray(dto.data[key]) 
-          ? dto.data[key].forEach((i) => component.select(`[data-value="${key}.${i}"]`).setContent(dto.data[key][i])) 
+          ? dto.data[key].forEach((v, i) => component.select(`[data-value="${key}.${i}"]`).setContent(dto.data[key][i])) 
           : component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
 
       dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
