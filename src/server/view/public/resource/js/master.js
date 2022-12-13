@@ -40,8 +40,8 @@ dom.on('DOMContentLoaded', () =>
 
       Object.keys(dto.data).forEach(
         (key) => Array.isArray(dto.data[key])
-          ? dto.data[key].forEach((_, i) => component.append(dom.create('div').setData('value', key + '.' + i).setContent(dto.data[key][i])))
-          : component.append(dom.create('div').setData('value', key + '.' + i).setContent(dto.data[key][i])))
+          ? dto.data[key].forEach((_, i) => component.append(dom.new('div').setData('value', key + '.' + i).setContent(dto.data[key][i])))
+          : component.append(dom.new('div').setData('value', key + '.' + i).setContent(dto.data[key][i])))
 
       dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
     })
