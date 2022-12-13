@@ -30,16 +30,18 @@ dom.on('DOMContentLoaded', () =>
 
     websocket.on('foobar', (dto) => console.log('foobar', dto))
 
-    websocket.on('input changed', (dto) => 
+    websocket.on('input changed', (dto) =>
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)
 
       console.log('dto', dto)
 
+      component.select(`[data-value]`).remove()
+
       Object.keys(dto.data).forEach(
-        (key) => Array.isArray(dto.data[key]) 
-          ? dto.data[key].forEach((v, i) => component.select(`[data-value="${key}.${i}"]`).setContent(dto.data[key][i])) 
-          : component.select(`[data-value="${key}"]`).setContent(dto.data[key]))
+        (key) => Array.isArray(dto.data[key])
+          ? dto.data[key].forEach((_, i) => component.append(dom.create('div').setData('value', key + '.' + i).setContent(dto.data[key][i])))
+          : component.append(dom.create('div').setData('value', key + '.' + i).setContent(dto.data[key][i])))
 
       dto.cid in dataset_renderer && dataset_renderer[dto.cid]()
     })
