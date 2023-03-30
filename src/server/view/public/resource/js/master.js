@@ -312,6 +312,41 @@ dom.on('DOMContentLoaded', () =>
       dataset_renderer[cid]()
     })
 
+    dom.select('.chart-candle-and-line').get().forEach((element) =>
+    {
+      const
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
+
+      charts[cid] = graph
+
+      dataset_renderer[cid] = () =>
+      {
+        graph.clear(context)
+        
+        const 
+          dataset         = getDataset(element),
+          dataset_candles = dataset.unshift()
+
+        {
+          const data = dataset_candles.map((v, i) => [new Date(i), ...v])
+          graph.setScale(data)
+          graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
+        }
+
+        let n = 0
+        for(let data of dataset)
+        {
+          const color = config.color.graph[n = graphColor(n)]
+          data = data.map((v, i) => [new Date(i), v])
+          graph.setScale(data)
+          graph.drawTimebasedLine(context, color, data)
+        }
+      }
+      dataset_renderer[cid]()
+    })
+
     dom.select('.chart-pie').get().forEach((element) =>
     {
       const
