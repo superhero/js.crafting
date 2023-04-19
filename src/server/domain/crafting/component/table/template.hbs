@@ -3,7 +3,7 @@
     <thead>
       <tr>
         {{# each head }}
-          <th>{{ this }}</th>
+          <th>{{{ this }}}</th>
         {{/ each }}
       </tr>
     </thead>
@@ -13,7 +13,7 @@
       {{# each body }}
         <tr>
           {{# each this }}
-            <td>{{ this }}</td>
+            <td>{{{ this }}}</td>
           {{/ each }}
         </tr>
       {{/ each }}
