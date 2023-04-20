@@ -337,7 +337,7 @@ dom.on('DOMContentLoaded', () =>
           graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
         }
 
-        let n = 3
+        let n = 2
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
