@@ -1,3 +1,5 @@
+const isValidDate = (s) => new Date(s).toString() !== 'Invalid Date'
+
 dom.on('DOMContentLoaded', () =>
 {
   fetch('//' + window.location.hostname + '/_configuration').then(async (response) =>
@@ -327,7 +329,7 @@ dom.on('DOMContentLoaded', () =>
         
         const 
           dataset         = getDataset(element),
-          dataset_candles = dataset.unshift()
+          dataset_candles = dataset.shift()
 
         {
           const data = dataset_candles.map((v, i) => [new Date(i), ...v])
@@ -339,8 +341,8 @@ dom.on('DOMContentLoaded', () =>
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
-          data = data.map((v, i) => [new Date(i), v])
-          graph.setScale(data)
+          // data = data.map((v, i) => [new Date(i), v])
+          //graph.setScale(data)
           graph.drawTimebasedLine(context, color, data)
         }
       }
