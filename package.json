@@ -1,6 +1,6 @@
 {
   "name": "crafting",
-  "version": "0.0.35",
+  "version": "0.0.37",
   "description": "Data report composer",
   "main": "src/server/index.js",
   "repository": "git@github.com:superhero/js.crafting.git",

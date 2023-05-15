@@ -214,10 +214,8 @@ dom.on('DOMContentLoaded', () =>
         let n = 0
 
         {
-          const 
-            data  = dataset.shift(),
-            color = config.color.graph[n = graphColor(n)]
-
+          let data = dataset.shift()
+          const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
           graph.setScale(data)
           graph.drawTimebasedLine(context, color, data)
@@ -250,10 +248,8 @@ dom.on('DOMContentLoaded', () =>
         let n = 0, i = 0
 
         {
-          const 
-            data  = dataset.shift(),
-            color = config.color.graph[n = graphColor(n)]
-
+          let data  = dataset.shift()
+          const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
           graph.setScale(data)
           graph.drawTimebasedBars(context, color, data, i++, 1)
@@ -300,10 +296,8 @@ dom.on('DOMContentLoaded', () =>
         let n = 0
 
         {
-          const 
-            data  = dataset.shift(),
-            color = config.color.graph[n = graphColor(n)]
-
+          let data  = dataset.shift()
+          const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), ...v])
           graph.setScale(data)
           graph.drawTimebasedArea(context, color, data)
@@ -334,7 +328,7 @@ dom.on('DOMContentLoaded', () =>
         const dataset = getDataset(element)
 
         {
-          const data = dataset.shift()
+          let data = dataset.shift()
           data = data.map((v, i) => [new Date(i), ...v])
           graph.setScale(data)
           graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
