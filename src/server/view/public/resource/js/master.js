@@ -30,8 +30,6 @@ dom.on('DOMContentLoaded', () =>
 
     websocket.connect()
 
-    websocket.on('foobar', (dto) => console.log('foobar', dto))
-
     websocket.on('input changed', (dto) => 
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)
@@ -214,11 +212,21 @@ dom.on('DOMContentLoaded', () =>
         graph.clear(context)
         const dataset = getDataset(element)
         let n = 0
+
+        {
+          const 
+            data  = dataset.shift(),
+            color = config.color.graph[n = graphColor(n)]
+
+          data = data.map((v, i) => [new Date(i), v])
+          graph.setScale(data)
+          graph.drawTimebasedLine(context, color, data)
+        }
+
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
-          graph.setScale(data)
           graph.drawTimebasedLine(context, color, data)
         }
       }
@@ -240,11 +248,21 @@ dom.on('DOMContentLoaded', () =>
         graph.clear(context)
         const dataset = getDataset(element)
         let n = 0, i = 0
+
+        {
+          const 
+            data  = dataset.shift(),
+            color = config.color.graph[n = graphColor(n)]
+
+          data = data.map((v, i) => [new Date(i), v])
+          graph.setScale(data)
+          graph.drawTimebasedBars(context, color, data, i++, 1)
+        }
+
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), v])
-          graph.setScale(data)
           graph.drawTimebasedBars(context, color, data, i++, 1)
         }
       }
@@ -280,11 +298,21 @@ dom.on('DOMContentLoaded', () =>
         graph.clear(context)
         const dataset = getDataset(element)
         let n = 0
+
+        {
+          const 
+            data  = dataset.shift(),
+            color = config.color.graph[n = graphColor(n)]
+
+          data = data.map((v, i) => [new Date(i), ...v])
+          graph.setScale(data)
+          graph.drawTimebasedArea(context, color, data)
+        }
+
         for(let data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
           data = data.map((v, i) => [new Date(i), ...v])
-          graph.setScale(data)
           graph.drawTimebasedArea(context, color, data)
         }
       }
@@ -304,10 +332,17 @@ dom.on('DOMContentLoaded', () =>
       {
         graph.clear(context)
         const dataset = getDataset(element)
+
+        {
+          const data = dataset.shift()
+          data = data.map((v, i) => [new Date(i), ...v])
+          graph.setScale(data)
+          graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
+        }
+
         for(let data of dataset)
         {
           data = data.map((v, i) => [new Date(i), ...v])
-          graph.setScale(data)
           graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
         }
       }
@@ -393,67 +428,70 @@ dom.on('DOMContentLoaded', () =>
       dataset_renderer[cid]()
     })
 
-    google.charts.load('current', { 'packages':['sankey'] })
-    google.charts.setOnLoadCallback(() =>
+    if(google)
     {
-      // chart options
-      const
-        google_sankey_options_colors = config.color.graph,
-        google_sankey_options =
-        {
-          tooltip : { isHtml: true },
-          sankey  :
+      google.charts.load('current', { 'packages':['sankey'] })
+      google.charts.setOnLoadCallback(() =>
+      {
+        // chart options
+        const
+          google_sankey_options_colors = config.color.graph,
+          google_sankey_options =
           {
-            node:
+            tooltip : { isHtml: true },
+            sankey  :
             {
-              colors: google_sankey_options_colors,
-              width: 4,
-              interactivity: false,
-              nodePadding: 32,
-              labelPadding: 8,
-              label:
+              node:
               {
-                fontName: 'Roboto Condensed',
-                fontSize: 14,
-                color: config.color.label, // '#11f8fb',
-                bold: false
+                colors: google_sankey_options_colors,
+                width: 4,
+                interactivity: false,
+                nodePadding: 32,
+                labelPadding: 8,
+                label:
+                {
+                  fontName: 'Roboto Condensed',
+                  fontSize: 14,
+                  color: config.color.label, // '#11f8fb',
+                  bold: false
+                }
+              },
+              link:
+              {
+                colorMode: 'gradient',
+                colors: google_sankey_options_colors
               }
-            },
-            link:
-            {
-              colorMode: 'gradient',
-              colors: google_sankey_options_colors
             }
           }
-        }
 
-      dom.select('.chart-google-sankey').get().forEach((element) =>
-      {
-        const
-          root  = dom.from(element),
-          chart = root.select('.sankey-graph'),
-          graph = new google.visualization.Sankey(chart.get(0)),
-          cid   = root.getData('cid')
-
-        dataset_renderer[cid] = () =>
+        dom.select('.chart-google-sankey').get().forEach((element) =>
         {
           const
-            input   = root.select('[data-value="input"]').getContent(),
-            dataset = JSON.parse(input),
-            data    = new google.visualization.DataTable()
+            root  = dom.from(element),
+            chart = root.select('.sankey-graph'),
+            graph = new google.visualization.Sankey(chart.get(0)),
+            cid   = root.getData('cid')
 
-          data.addColumn('string', 'From')
-          data.addColumn('string', 'To')
-          data.addColumn('number', 'Weight')
-          data.addRows(dataset)
-    
-          google_sankey_options.width   = 1500 // root.getWidth().client
-          google_sankey_options.height  =  500 // root.getHeight().client
-          // instantiates and draws our chart, passing in some options.
-          graph.draw(data, google_sankey_options)
-        }
-        dataset_renderer[cid]()
+          dataset_renderer[cid] = () =>
+          {
+            const
+              input   = root.select('[data-value="input"]').getContent(),
+              dataset = JSON.parse(input),
+              data    = new google.visualization.DataTable()
+
+            data.addColumn('string', 'From')
+            data.addColumn('string', 'To')
+            data.addColumn('number', 'Weight')
+            data.addRows(dataset)
+      
+            google_sankey_options.width   = 1500 // root.getWidth().client
+            google_sankey_options.height  =  500 // root.getHeight().client
+            // instantiates and draws our chart, passing in some options.
+            graph.draw(data, google_sankey_options)
+          }
+          dataset_renderer[cid]()
+        })
       })
-    })
+    }
   })
 })
