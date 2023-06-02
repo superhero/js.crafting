@@ -210,21 +210,21 @@ dom.on('DOMContentLoaded', () =>
       dataset_renderer[cid] = () =>
       {
         graph.clear(context)
-        const dataset = getDataset(element)
+        const dataset = getDataset(element).map((data) => data.map((v, i) => [new Date(i), v]))
         let n = 0
 
         {
-          let data = dataset.shift()
-          const color = config.color.graph[n = graphColor(n)]
-          data = data.map((v, i) => [new Date(i), v])
-          graph.setScale(data)
+          const 
+            data  = dataset.shift(),
+            color = config.color.graph[n = graphColor(n)]
+
+          graph.setScale(data.concat(...dataset))
           graph.drawTimebasedLine(context, color, data)
         }
 
-        for(let data of dataset)
+        for(const data of dataset)
         {
           const color = config.color.graph[n = graphColor(n)]
-          data = data.map((v, i) => [new Date(i), v])
           graph.drawTimebasedLine(context, color, data)
         }
       }
@@ -355,7 +355,7 @@ dom.on('DOMContentLoaded', () =>
       dataset_renderer[cid] = () =>
       {
         graph.clear(context)
-        
+
         const 
           dataset         = getDataset(element),
           dataset_candles = dataset.shift()
