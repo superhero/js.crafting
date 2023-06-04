@@ -31,15 +31,14 @@ class Crafting extends Component
     return await super.render()
   }
 
-  details()
+  details(summary, open = true)
   {
     const
       Component = require('./component/details'),
       component = new Component(++this.builder.cid, this.manager, this.schemaComposer, this.handlebars, this.websocket),
-      content   = this.builder.build(),
-      open      = true
+      content   = this.builder.build()
 
-    component.input(open)
+    component.input(summary, open)
     component.content = content
 
     this.sections.push(component)

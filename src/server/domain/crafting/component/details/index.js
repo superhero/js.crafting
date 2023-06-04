@@ -4,10 +4,10 @@ class CraftingComponentDetails extends Component
 {
   template = __dirname + '/template'
 
-  input(open, summary)
+  input(summary, open)
   {
-    this.open     = open
     this.summary  = summary
+    this.open     = open
   }
 
   async render()
