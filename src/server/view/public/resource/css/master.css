@@ -393,13 +393,13 @@ details summary
 {
   cursor: pointer;
 }
-details summary ::marker
+details summary::marker
 {
   margin-right: 8px;
 }
 details summary:hover
 {
-  font-weight: bold;
+  color: #fff;
 }
 hr
 {
