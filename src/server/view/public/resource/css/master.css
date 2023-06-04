@@ -380,3 +380,17 @@ pre.json
   overflow-x: auto;
   overflow-y: hidden;
 }
+details > .container
+{
+  margin-top: 16px;
+  padding: 0;
+}
+details
+{
+  padding: 16px 0;
+}
+hr
+{
+  margin: 64px 0;
+  border-bottom: 1px solid #777;
+}

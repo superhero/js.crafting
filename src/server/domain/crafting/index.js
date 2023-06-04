@@ -31,6 +31,21 @@ class Crafting extends Component
     return await super.render()
   }
 
+  details()
+  {
+    const
+      Component = require('./component/details'),
+      component = new Component(++this.builder.cid, this.manager, this.schemaComposer, this.handlebars, this.websocket),
+      content   = this.builder.build()
+
+    component.input(undefined)
+    component.content = content
+
+    this.sections.push(component)
+
+    return component
+  }
+
   layout_columns_2()
   {
     const

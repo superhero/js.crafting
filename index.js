@@ -53,6 +53,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
     crafting.caption('Table of data')
     crafting.table({ head:['one', 'two', 'three'], body:[[1,2,3], [2,3,1], [3,1,2]] })
   }
+  crafting.seperator()
   {
     crafting.header('Line chart')
     crafting.caption('Line chart appended data')
@@ -72,6 +73,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       chart_line.emit2all('input appended', { 'dataset.0':input_1, 'dataset.1':input_2 })
     }, 1e3)
   }
+  crafting.seperator()
   {
     crafting.header('Bar chart')
     crafting.caption('Bar chart adjusted data')
@@ -94,6 +96,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       chart_bar.emit2all('input adjusted', { 'dataset.0':input_1, 'dataset.1':input_2 })
     }, 1e3)
   }
+  crafting.seperator()
   {
     crafting.header('Area chart')
     crafting.caption('Area chart remove and append new data in a 10 sec interval')
@@ -122,13 +125,17 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       }
     }, 1e3)
   }
+  crafting.seperator()
   {
     crafting.header('Candle chart')
     crafting.caption('Candle chart remove and prepend new data in a 10 sec interval')
 
+    const details = crafting.details()
+    details.summary = 'Candle chart'
+
     const 
       random_walk   = crafting.random_walk_candles(100),
-      chart_candle  = crafting.chart_candle({ dataset:[ random_walk ] })
+      chart_candle  = details.content.chart_candle({ dataset:[ random_walk ] })
 
     setInterval(() => 
     {
@@ -150,6 +157,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       }
     }, 1e3)
   }
+  crafting.seperator()
   {
     crafting.header('Pie chart')
     crafting.caption('Pie chart generated with 12 random positive numbers')
@@ -158,6 +166,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       random_walk = crafting.random_walk(12).map((v) => Math.abs(v)),
       chart_pie   = crafting.chart_pie({ dataset:random_walk })
   }
+  crafting.seperator()
   {
     crafting.header('Donut chart')
     crafting.caption('Pie chart generated with 4 random positive numbers')
@@ -166,6 +175,7 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       random_walk = crafting.random_walk(4).map((v) => Math.abs(v)),
       chart_donut = crafting.chart_donut({ dataset:random_walk })
   }
+  crafting.seperator()
   {
     crafting.header('Google sankey chart')
     crafting.caption('Google sankey chart')
