@@ -393,7 +393,11 @@ details summary
 {
   cursor: pointer;
 }
-details:hover summary
+details summary ::marker
+{
+  margin-right: 8px;
+}
+details summary:hover
 {
   font-weight: bold;
 }
