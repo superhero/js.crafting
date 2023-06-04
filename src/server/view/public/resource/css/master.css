@@ -208,6 +208,11 @@ table th
 {
   padding: 8px;
   font-size: .85em;
+  text-align: right;
+}
+table td:first-child,
+table th:first-child
+{
   text-align: left;
 }
 table th
@@ -388,7 +393,8 @@ details > .container
 }
 details
 {
-  padding: 16px 0;
+  margin: 16px 0;
+  padding-bottom: 16px;
 }
 details summary
 {
