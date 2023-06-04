@@ -389,6 +389,14 @@ details
 {
   padding: 16px 0;
 }
+details summary
+{
+  cursor: pointer;
+}
+details:hover summary
+{
+  font-weight: bold;
+}
 hr
 {
   margin: 64px 0;

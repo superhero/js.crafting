@@ -36,9 +36,10 @@ class Crafting extends Component
     const
       Component = require('./component/details'),
       component = new Component(++this.builder.cid, this.manager, this.schemaComposer, this.handlebars, this.websocket),
-      content   = this.builder.build()
+      content   = this.builder.build(),
+      open      = true
 
-    component.input(undefined)
+    component.input(open)
     component.content = content
 
     this.sections.push(component)
