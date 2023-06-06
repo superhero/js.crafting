@@ -24,7 +24,8 @@ div:after,
 navigation:after,
 segment:after,
 .layout:after,
-.container:after
+.container:after,
+ul.notes li:after
 {
   content: "";
   display: table;
@@ -412,4 +413,33 @@ hr
 {
   margin: 64px 0;
   border-bottom: 1px solid #777;
+}
+ul
+{
+  margin: 0;
+  padding: 0;
+  list-style: square;
+}
+ul li
+{
+  margin: 0;
+  padding: 0;
+  padding-left: 16px;
+}
+ul.notes
+{
+  list-style: none;
+}
+ul.notes li
+{
+  padding: 0;
+  border-bottom: 1px dotted #eee;
+}
+ul.notes li span:first-child
+{
+  float: left;
+}
+ul.notes li span:last-child
+{
+  float: right;
 }
