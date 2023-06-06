@@ -432,8 +432,16 @@ ul.notes
 }
 ul.notes li
 {
-  padding: 0;
-  border-bottom: 1px dotted #eee;
+  padding: 8px 0 4px 0;
+  border-bottom: 1px dotted #666;
+  color: #666;
+  font-family: monospace;
+}
+ul.notes li span
+{
+  color: #666;
+  font-family: monospace;
+  font-size: .9em;
 }
 ul.notes li span:first-child
 {
