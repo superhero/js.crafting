@@ -6,7 +6,8 @@ const schema =
 {
   input:
   {
-    'type' : 'string'
+    'type'        : 'string',
+    'collection'  : true
   }
 }
 

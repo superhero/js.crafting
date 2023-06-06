@@ -7,7 +7,7 @@ class CraftingComponentNotes extends Component
 
   input(input)
   {
-    super.input({ input })
+    this.context = { input }
   }
 }
 

@@ -12,7 +12,7 @@ class CraftingComponent
 
   input(input)
   {
-    if(this.schema in this.schemaComposer.schemas === false)
+    if((this.schema in this.schemaComposer.schemas) === false)
     {
       const schema = require(this.schema)
       this.schemaComposer.addSchema(this.schema, schema)
