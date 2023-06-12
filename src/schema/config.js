@@ -3,7 +3,6 @@
  */
 module.exports =
 {
-  /*
   core:
   {
     schema:
@@ -12,10 +11,9 @@ module.exports =
       {
         // 'crafting/schema/entity/*'  : __dirname + '/entity/*',
         // 'crafting/schema/event/*'   : __dirname + '/event/*',
-        // 'crafting/schema/query/*'   : __dirname + '/query/*',
+        'crafting/schema/query/*'   : __dirname + '/query/*',
         // 'crafting/schema/value/*'   : __dirname + '/value/*'
       }
     }
   }
-  */
 }

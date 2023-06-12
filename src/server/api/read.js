@@ -9,7 +9,7 @@ class Read extends Dispatcher
   async dispatch()
   {
     const crafting = this.locator.locate('crafting')
-    this.view.body.main = await crafting.render()
+    this.view.body.main = await crafting.page(this.route.dto.page).render()
   }
 }
 

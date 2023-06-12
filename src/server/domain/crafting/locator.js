@@ -23,6 +23,8 @@ class CraftingLocator extends LocatorConstituent
       builder     = new CraftingBuilder(manager, path, schema, handlebars, websocket),
       crafting    = builder.build()
 
+    manager.pages[''] = crafting
+
     return crafting
   }
 }

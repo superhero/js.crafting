@@ -12,6 +12,15 @@ class Crafting extends Component
     this.sections = []
   }
 
+  page(page = '')
+  {
+    if(page in this.manager.pages === false)
+    {
+      this.manager.pages[page] = this.builder.build()
+    }
+    return this.manager.pages[page]
+  }
+
   container()
   {
     const container = this.builder.build()
@@ -117,6 +126,24 @@ class Crafting extends Component
       low   = Math.min(open, close) - this.random_integer(variance / 2)
     
     return [ open, close, high, low ]
+  }
+
+  toIndexedArray(obj)
+  {
+    const 
+      keys   = Object.keys(obj),
+      values = Object.values(obj)
+
+    return values.map((v, i) => [keys[i], v])
+  }
+
+  toIndexedMultiArray(obj)
+  {
+    const 
+      keys   = Object.keys(obj),
+      values = Object.values(obj)
+
+    return values.map((v, i) => [keys[i], ...v])
   }
 }
 

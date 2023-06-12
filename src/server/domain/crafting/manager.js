@@ -1,6 +1,7 @@
 class Manager
 {
-  components = {}
+  components  = {}
+  pages       = {}
 }
 
 module.exports = Manager

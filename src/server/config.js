@@ -33,12 +33,22 @@ module.exports =
           },
           'read':
           {
-            url         : '.*',
+            url         : '/',
             method      : 'get',
             endpoint    : 'api/read',
             view        : '@superhero/core.handlebars',
             template    : 'view/template/layout',
-            input       : false,
+            input       : 'crafting/schema/query/read',
+            output      : false
+          },
+          'read-page':
+          {
+            url         : '/:page',
+            method      : 'get',
+            endpoint    : 'api/read',
+            view        : '@superhero/core.handlebars',
+            template    : 'view/template/layout',
+            input       : 'crafting/schema/query/read',
             output      : false
           }
         }
