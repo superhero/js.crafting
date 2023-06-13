@@ -263,6 +263,7 @@ dom.on('DOMContentLoaded', () =>
         }
       }
 
+      /*
       mouse_moved[cid] = (event) =>
       {
         graph.clear(hoover)
@@ -276,6 +277,7 @@ dom.on('DOMContentLoaded', () =>
 
         graph.drawVerticalLine(hoover, x + offset, '#fff', width, 0.3)
       }
+      */
 
       dataset_renderer[cid]()
     })
