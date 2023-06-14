@@ -395,7 +395,6 @@ details > .container
 details
 {
   margin: 16px 0;
-  padding-bottom: 16px;
 }
 details summary
 {
@@ -450,4 +449,8 @@ ul.notes li span:first-child
 ul.notes li span:last-child
 {
   float: right;
+}
+.chart-candle-and-line
+{
+  overflow-x: auto;
 }

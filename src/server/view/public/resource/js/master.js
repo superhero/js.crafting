@@ -363,7 +363,15 @@ dom.on('DOMContentLoaded', () =>
           dataset_candles = dataset.shift()
 
         {
-          const data = dataset_candles.map((v, i) => [new Date(i), ...v])
+          const 
+            data  = dataset_candles.map((v, i) => [new Date(i), ...v]),
+            width = data.length * 6
+
+          if(width > graph.width)
+          {
+            graph.setSize(width, graph.height)
+          }
+
           graph.setScale(data)
           graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
         }
