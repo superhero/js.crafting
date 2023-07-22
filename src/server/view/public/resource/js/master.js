@@ -388,6 +388,63 @@ dom.on('DOMContentLoaded', () =>
       dataset_renderer[cid]()
     })
 
+    dom.select('.chart-candle-and-line-with-postmortem').get().forEach((element) =>
+    {
+      const
+        graph   = createGraph(element),
+        context = dom.from(element).select('canvas.chart').get(0).getContext('2d'),
+        cid     = dom.from(element).getData('cid')
+
+      charts[cid] = graph
+
+      dataset_renderer[cid] = () =>
+      {
+        graph.clear(context)
+
+        const
+          dataset         = getDataset(element),
+          dataset_candles = dataset.shift()
+
+        {
+          const
+            data  = dataset_candles.map((v, i) => [new Date(i), ...v]),
+            width = data.length * 6
+
+          if(width > graph.width)
+          {
+            graph.setSize(width, graph.height)
+          }
+
+          graph.setScale(data)
+          graph.drawTimebasedCandels(context, config.color.graph[0], config.color.graph[1], config.color.graph[2], data)
+        }
+
+        let n = 2
+        for(let data of dataset)
+        {
+          const color = config.color.graph[n = graphColor(n)]
+          // data = data.map((v, i) => [new Date(i), v])
+          // graph.setScale(data)
+          const postmortem = data.pop()
+          graph.drawTimebasedLine(context, color, data)
+
+          {
+            const
+              x       = postmortem[0],
+              y       = postmortem[1],
+              width   = postmortem[2],
+              height  = postmortem[3],
+              lowest  = postmortem[4],
+              alpha   = 0.25
+  
+            graph.drawBox(context, '#090', x, y, width, height, alpha)
+            graph.drawBox(context, '#900', x, y - lowest, width, lowest, alpha)
+          }
+        }
+      }
+      dataset_renderer[cid]()
+    })
+
     dom.select('.chart-pie').get().forEach((element) =>
     {
       const

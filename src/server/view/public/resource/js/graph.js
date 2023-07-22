@@ -54,6 +54,8 @@ class Graph
     context.arc(x, y, size, 0, 2 * Math.PI)
     context.fill()
     context.stroke()
+
+    context.closePath()
   }
 
   drawTextBox(context, x, y, topAlign, leftAlign, background, padding, font, color, text, alphaBackground = 1, alpha = 1)
@@ -96,6 +98,8 @@ class Graph
     }
 
     context.stroke()
+
+    context.closePath()
   }
 
   drawHorizontalLine(context, y, color, width, alpha = 1)
@@ -109,6 +113,8 @@ class Graph
     context.moveTo(0, y)
     context.lineTo(this.width, y)
     context.stroke()
+
+    context.closePath()
   }
 
   drawVerticalLine(context, x, color, width, alpha = 1)
@@ -122,6 +128,24 @@ class Graph
     context.moveTo(x, 0)
     context.lineTo(x, this.height)
     context.stroke()
+
+    context.closePath()
+  }
+
+  drawBox(context, color, x, y, width, height, alpha = 1)
+  {
+    context.beginPath()
+    const
+      scaledX       = this.xScale(x),
+      scaledY       = this.yScale(y),
+      scaledWidth   = this.xScale(x + width)  - scaledX,
+      scaledHeight  = this.yScale(y + height) - scaledY
+
+    context.globalAlpha  = alpha
+    context.fillStyle    = color
+
+    context.fillRect(scaledX, scaledY, scaledWidth, scaledHeight)
+    context.closePath()
   }
 
   /**

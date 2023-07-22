@@ -1,0 +1,7 @@
+<div class="chart-candle-and-line-with-postmortem" data-cid="{{ cid }}">
+  <canvas class="chart"></canvas>
+
+  {{# each dataset }}
+    <div class="dataset" data-value="dataset.{{ @key }}">{{{ jsonStringify this }}}</div>
+  {{/ each }}
+</div>

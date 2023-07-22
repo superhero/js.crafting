@@ -450,7 +450,8 @@ ul.notes li span:last-child
 {
   float: right;
 }
-.chart-candle-and-line
+.chart-candle-and-line,
+.chart-candle-and-line-with-postmortem
 {
   overflow-x: auto;
 }
