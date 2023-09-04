@@ -62,6 +62,8 @@ crafting.text('This is a demo that documents how to build a report using the "cr
       random_walk_1 = crafting.random_walk(100),
       random_walk_2 = crafting.random_walk(100),
       chart_line    = crafting.chart_line({ dataset:[ random_walk_1, random_walk_2 ] })
+
+    crafting.color_labels([ 'random walk 1', 'random walk 2' ])
   
     setInterval(() => 
     {

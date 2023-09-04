@@ -6,7 +6,7 @@ option
 {
   font-size: 16px;
   font-family: 'Roboto Condensed', sans-serif;
-  color: #aaa;
+  color: #333;
 }
 .material-icons-outlined
 {
@@ -454,4 +454,22 @@ ul.notes li span:last-child
 .chart-candle-and-line-with-postmortem
 {
   overflow-x: auto;
+}
+.color-labels
+{
+  list-style: none;
+  font-size: .8em;
+}
+.color-labels li
+{
+  line-height: 1.25em;
+  padding-left: 0;
+}
+.color-labels li > span
+{
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 4px;
 }

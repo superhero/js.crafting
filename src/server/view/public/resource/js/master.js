@@ -17,6 +17,16 @@ dom.on('DOMContentLoaded', () =>
 
     console.log(config)
 
+    const style = document.createElement('style')
+    document.head.appendChild(style)
+
+    for(const i in config.color.graph)
+    {
+      const color = config.color.graph[i]
+      style.textContent += `.color-${i} { color: ${color} } `, 0
+      style.textContent += `.color-${i}-bg { background-color: ${color} }`, 0
+    }
+
     const
       websocket = new WebSocketStream(
       {
