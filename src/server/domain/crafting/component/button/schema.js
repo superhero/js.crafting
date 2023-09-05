@@ -1,14 +1,18 @@
 /**
  * @memberof Server.Domain
- * @typedef {Object} CraftingLink
+ * @typedef {Object} CraftingButton
  */
 const schema =
 {
-  url:
+  cid:
+  {
+    'type' : 'integer'
+  },
+  label:
   {
     'type' : 'string'
   },
-  label:
+  value:
   {
     'type' : 'string'
   }

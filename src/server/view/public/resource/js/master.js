@@ -154,6 +154,20 @@ dom.on('DOMContentLoaded', () =>
           x     = graph.xScale.invert(event.offsetX)
 
         websocket.emit('click', { cid, x })
+
+        return
+      }
+
+      const button = dom.from(event.target).parent('button[class="btn"]', true)
+      if(button)
+      {
+        const
+          cid   = chart.getData('cid'),
+          value = button.getValue()
+
+        websocket.emit('click', { cid, value })
+
+        return
       }
     })
 
