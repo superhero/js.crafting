@@ -162,7 +162,7 @@ dom.on('DOMContentLoaded', () =>
       if(button)
       {
         const
-          cid   = chart.getData('cid'),
+          cid   = button.getData('cid'),
           value = button.getValue()
 
         websocket.emit('click', { cid, value })
