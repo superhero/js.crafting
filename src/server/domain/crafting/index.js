@@ -21,6 +21,11 @@ class Crafting extends Component
     return this.manager.pages[page]
   }
 
+  deletePage(page = '')
+  {
+    delete this.manager.pages[page]
+  }
+
   container()
   {
     const container = this.builder.build()
