@@ -25,15 +25,19 @@ class CraftingBuilder
     {
       if(componentName in crafting === false)
       {
-        crafting[componentName] = (input) =>
+        crafting[componentName] = (input, push2sections=true) =>
         {
           const 
             Component = require('./component/' + componentName),
             component = new Component(++this.cid, this.manager, this.schema, this.handlebars, this.websocket)
-  
+
           component.input(input)
 
-          crafting.sections.push(component)
+          if(push2sections)
+          {
+            crafting.sections.push(component)
+          }
+
           this.manager.components[this.cid] = component
   
           return component
