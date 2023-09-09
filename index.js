@@ -2,6 +2,24 @@ require('./src/server').bootstrap().then((core) =>
 {
   const crafting = core.locate('crafting')
 
+  crafting.title('Crafting navigation')
+  {
+    const navigation = crafting.navigation(
+    [
+      {
+        url   : '#foo',
+        label : 'Foo'
+      },
+      {
+        url   : '#bar',
+        label : 'Bar'
+      },
+      {
+        url   : '#baz',
+        label : 'Baz'
+      }
+    ])
+  }
   crafting.title('Crafting docs')
   {
     const layout = crafting.layout_columns_2()

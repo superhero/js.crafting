@@ -26,6 +26,11 @@ class Crafting extends Component
     delete this.manager.pages[page]
   }
 
+  dialog(socket, message)
+  {
+    socket.emit('dialog', { message })
+  }
+
   container()
   {
     const container = this.builder.build()

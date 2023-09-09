@@ -6,7 +6,7 @@ option
 {
   font-size: 16px;
   font-family: 'Roboto Condensed', sans-serif;
-  color: #333;
+  color: #555;
 }
 .material-icons-outlined
 {
@@ -114,6 +114,7 @@ p
 }
 pre
 {
+  line-height: 1.185em;
   display: block;
   font-family: monospace;
   white-space: pre;
@@ -473,4 +474,35 @@ ul.notes li span:last-child
   height: 8px;
   margin-right: 8px;
   border-radius: 4px;
+}
+nav.navigation ul
+{
+  margin: 32px 0;
+  padding: 16px 0;
+  border: 1px solid #333;
+  border-left: 0;
+  border-right: 0;
+}
+nav.navigation ul,
+nav.navigation li
+{
+  list-style: none;
+}
+nav.navigation li
+{
+  display: inline-block;
+  text-align: center;
+  padding: 0 16px 0 0;
+  margin: 0;
+}
+nav.navigation li a
+{
+  text-decoration: none;
+  font-weight: bold;
+}
+nav.navigation li a:hover,
+nav.navigation li a:focus,
+nav.navigation li a:active
+{
+  color: #ccc;
 }
