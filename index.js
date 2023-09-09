@@ -4,7 +4,7 @@ require('./src/server').bootstrap().then((core) =>
 
   crafting.title('Crafting navigation')
   {
-    const navigation = crafting.navigation(
+    crafting.navigation(
     [
       {
         url   : '#foo',
@@ -17,6 +17,17 @@ require('./src/server').bootstrap().then((core) =>
       {
         url   : '#baz',
         label : 'Baz'
+      }
+    ])
+    crafting.sub_navigation(
+    [
+      {
+        url   : '#qux',
+        label : 'Qux'
+      },
+      {
+        url   : '#foobar',
+        label : 'Foobar'
       }
     ])
   }
