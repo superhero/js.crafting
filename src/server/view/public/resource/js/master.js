@@ -40,6 +40,45 @@ dom.on('DOMContentLoaded', () =>
 
     websocket.connect()
 
+    websocket.on('dialog', (dto) => 
+    {
+      const 
+        dialog_background = dom.new('div'),
+        dialog            = dom.new('div'),
+        dialog_terminate  = dom.new('div')
+        
+      dialog_background.addClass('dialog--background')
+      dialog_background.append(dialog)
+      dialog.append(dialog_terminate)
+      dialog.addClass('dialog')
+      dialog_terminate.setContent('✕')
+      dialog_terminate.addClass('dialog--terminate')
+      dialog_terminate.on('click', () => dialog_background.remove())
+
+      if(dto.message)
+      {
+        const dialog_message = dom.new('p')
+        dialog_message.setContent(dto.message)
+        dialog_message.addClass('dialog--message')
+        dialog.append(dialog_message)
+      }
+
+      if(dto.ok)
+      {
+        const ok_button = dom.new('button')
+        dialog.append(ok_button)
+        ok_button.setContent(dto.ok)
+        ok_button.addClass('dialog--button')
+        ok_button.on('click', () => 
+        {
+          websocket.emit('click', { ok:dto.id })
+          dialog.remove()
+        })
+      }
+
+      dom.select('body').append(dialog_background)
+    })
+
     websocket.on('input changed', (dto) => 
     {
       const component = dom.select(`[data-cid="${dto.cid}"]`)

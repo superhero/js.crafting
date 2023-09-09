@@ -2,7 +2,22 @@ require('./src/server').bootstrap().then((core) =>
 {
   const crafting = core.locate('crafting')
 
-  crafting.title('Crafting navigation')
+  crafting.title('Crafting docs')
+  {
+    const layout = crafting.layout_columns_2()
+
+    layout.column1.header('Text')
+    layout.column1.caption('Crafting reports with ease')
+    layout.column1.text('This is a demo that documents how to build a report using the "crafting framework". In this demo all availible components will be listed and explained.')
+
+    layout.column2.header('Code')
+    layout.column2.caption('Above representation in code')
+    layout.column2.code(
+    `crafting.title('Text')
+crafting.caption('Crafting reports with ease')
+crafting.text('This is a demo that documents how to build a report using the "crafting framework". In this demo all availible components will be listed and explained.')`)
+  }
+  crafting.header('Crafting navigation')
   {
     crafting.navigation(
     [
@@ -31,20 +46,14 @@ require('./src/server').bootstrap().then((core) =>
       }
     ])
   }
-  crafting.title('Crafting docs')
+  crafting.header('Crafting Button')
   {
-    const layout = crafting.layout_columns_2()
-
-    layout.column1.header('Text')
-    layout.column1.caption('Crafting reports with ease')
-    layout.column1.text('This is a demo that documents how to build a report using the "crafting framework". In this demo all availible components will be listed and explained.')
-
-    layout.column2.header('Code')
-    layout.column2.caption('Above representation in code')
-    layout.column2.code(
-    `crafting.title('Text')
-crafting.caption('Crafting reports with ease')
-crafting.text('This is a demo that documents how to build a report using the "crafting framework". In this demo all availible components will be listed and explained.')`)
+    const btn = crafting.button(
+    {
+      label: 'click me',
+      value: 'you clicked me'
+    })
+    btn.on('click', (event, socket) => crafting.dialog(socket, event.value))
   }
   {
     const layout = crafting.layout_columns_2()

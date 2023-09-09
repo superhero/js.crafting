@@ -511,3 +511,58 @@ nav.navigation li a:active
 {
   color: #ccc;
 }
+.dialog--background
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0,0,0,.5);
+  z-index: 1000;
+  padding: 15% 25%;
+}
+.dialog
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  border: 2px solid #333;
+  padding: 16px 18px;
+}
+.dialog--terminate
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: -16px;
+  color: #bbb;
+  cursor: pointer;
+  padding: 16px 18px;
+  line-height: 1.5em;
+}
+.dialog--message
+{
+  margin: 0;
+  color: #ccc;
+}
+.dialog--button
+{
+  padding: 16px;
+  background: #111;
+  color: #bbb;
+  outline: none;
+  border: 0;
+  text-decoration: none;
+  font-weight: bold;
+}
+.dialog--button:active,
+.dialog--button:hover,
+.dialog--button:focus
+{
+  background: #222;
+  color: #ccc;
+}
