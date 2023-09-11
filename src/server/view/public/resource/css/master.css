@@ -239,6 +239,14 @@ table a
 {
   display: block;
 }
+table td button
+{
+  display: inline;
+  float: none;
+  padding: 2px 4px;
+  line-height: 1em;
+  border-width: 2px;
+}
 hr
 {
   border-bottom: 1px solid #eee;
